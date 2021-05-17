@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: ReferenceImageLibrary
+  m_EditorClassIdentifier: 
+  m_GuidLow: 5679083006846094316
+  m_GuidHigh: 17390095814358596283
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 5376672923277919366
+      m_GuidHigh: 7609862014115572415
+    m_SerializedTextureGuid:
+      m_GuidLow: 2820415205981957726
+      m_GuidHigh: 10268636270767482073
+    m_Size: {x: 0.1524, y: 0.2032}
+    m_SpecifySize: 1
+    m_Name: Breath_Becomes_Air
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5746897401946729953
+      m_GuidHigh: 14113556154140925083
+    m_SerializedTextureGuid:
+      m_GuidLow: 15344987003733320162
+      m_GuidHigh: 10616550711624094601
+    m_Size: {x: 0.1524, y: 0.21074744}
+    m_SpecifySize: 1
+    m_Name: LoveAndPajamas
+    m_Texture: {fileID: 0}

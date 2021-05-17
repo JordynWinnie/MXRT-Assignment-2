@@ -44,3 +44,14 @@ The following packages were added:
   com.unity.textmeshpro@3.0.4
   com.unity.timeline@1.4.7
   com.unity.ugui@1.0.0
+
+=== Tue May 18 00:06:21 2021
+
+Packages were changed.
+Update Mode: mergeDefaultDependencies
+
+The following packages were added:
+  com.unity.2d.sprite@1.0.0
+  com.unity.device-simulator@2.0.0-preview
+  com.unity.localization@0.7.1-preview
+  com.unity.xr.arkit@4.1.0-preview.5
