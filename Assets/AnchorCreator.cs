@@ -30,30 +30,33 @@ public class AnchorCreator : MonoBehaviour
         m_Anchors.Clear();
     }
 
-    void SetAnchorText(ARAnchor anchor, string text)
+    void SetAnchorInfo(ARAnchor anchor, byte[] data)
     {
-        anchor.GetComponentInChildren<TextMesh>().text = text;
+        anchor.GetComponent<ImageResultFromAPI>().currentByteArray = data;
+        //anchor.GetComponentInChildren<TextMesh>().text = text;
     }
     
     ARAnchor CreateAnchor(in ARRaycastHit hit)
     {
-
+        if (m_PlaneManager.trackables.count > 0)
+        {
+            isTrackablesActive = false;
+        }
         
-        ScreenCapture.Instance.CaptureScreenshot();
         ARAnchor anchor = null;
-
+        var byteArray = ScreenCapture.Instance.CaptureScreenshot();
+        
         // If we hit a plane, try to "attach" the anchor to the plane
         if (hit.trackable is ARPlane plane)
         {
             var planeManager = m_PlaneManager;
             if (planeManager)
             {
-                //Logger.Log("Creating anchor attachment.");
                 var oldPrefab = m_AnchorManager.anchorPrefab;
                 m_AnchorManager.anchorPrefab = m_AnchorObj;
                 anchor = m_AnchorManager.AttachAnchor(plane, hit.pose);
                 m_AnchorManager.anchorPrefab = oldPrefab;
-                SetAnchorText(anchor, $"Hit Type: {hit.hitType} \n Distance (Unity): \n {hit.distance} Distance (Session): {hit.sessionRelativeDistance}");
+                SetAnchorInfo(anchor, byteArray);
                 return anchor;
             }
         }
@@ -71,17 +74,19 @@ public class AnchorCreator : MonoBehaviour
             anchor = gameObject.AddComponent<ARAnchor>();
         }
 
-        SetAnchorText(anchor, $"Hit Type: {hit.hitType} \n Distance (Unity): \n {hit.distance} Distance (Session): {hit.sessionRelativeDistance}");
+        SetAnchorInfo(anchor, byteArray);
         
         return anchor;
     }
 
     private void Update()
     {
+
         if (m_PlaneManager.trackables.count > 0)
         {
             m_PlaneManager.SetTrackablesActive(isTrackablesActive);
         }
+
         if (Input.touchCount == 0)
             return;
 
