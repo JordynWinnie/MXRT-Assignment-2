@@ -16,8 +16,10 @@ public class AnchorCreator : MonoBehaviour
 
     [SerializeField] private ARPlaneManager m_PlaneManager;
 
+    [SerializeField] private bool isTrackablesActive = true;
+    
     private const TrackableType trackableTypes =
-        TrackableType.FeaturePoint;
+        TrackableType.FeaturePoint | TrackableType.Planes;
     public void RemoveAllAnchors()
     {
         //Logger.Log($"Removing all anchors ({m_Anchors.Count})");
@@ -32,9 +34,12 @@ public class AnchorCreator : MonoBehaviour
     {
         anchor.GetComponentInChildren<TextMesh>().text = text;
     }
+    
     ARAnchor CreateAnchor(in ARRaycastHit hit)
     {
-        ScreenshotManager.Instance.TakeScreenshot(1000,1000);
+
+        
+        ScreenCapture.Instance.CaptureScreenshot();
         ARAnchor anchor = null;
 
         // If we hit a plane, try to "attach" the anchor to the plane
@@ -73,6 +78,10 @@ public class AnchorCreator : MonoBehaviour
 
     private void Update()
     {
+        if (m_PlaneManager.trackables.count > 0)
+        {
+            m_PlaneManager.SetTrackablesActive(isTrackablesActive);
+        }
         if (Input.touchCount == 0)
             return;
 

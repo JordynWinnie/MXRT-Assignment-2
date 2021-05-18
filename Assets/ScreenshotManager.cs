@@ -22,27 +22,25 @@ public class ScreenshotManager : MonoBehaviour
 
     private void OnPostRender()
     {
-        if (takeScreenshotOnNextFrame)
-        {
-            
-            takeScreenshotOnNextFrame = false;
-            var renderTexture = m_Camera.targetTexture;
-
-            var renderResult = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false);
-
-            var rect = new Rect(0, 0, renderTexture.width, renderTexture.height);
-            
-            renderResult.ReadPixels(rect, 0,0);
-
-            var byteArray = renderResult.EncodeToJPG();
-            
-            System.IO.File.WriteAllBytes(Application.persistentDataPath + $"/Screenshot-{Random.Range(0, 1000)}.jpg", byteArray);
-            
-            RenderTexture.ReleaseTemporary(renderTexture);
-            m_Camera.targetTexture = null;
-            m_Camera.cullingMask = defaultMask.value;
-        }
+        if (!takeScreenshotOnNextFrame) return;
         
+        takeScreenshotOnNextFrame = false;
+        var renderTexture = m_Camera.targetTexture;
+
+        var renderResult = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false);
+
+        var rect = new Rect(0, 0, renderTexture.width, renderTexture.height);
+            
+        renderResult.ReadPixels(rect, 0,0);
+
+        var byteArray = renderResult.EncodeToJPG();
+            
+        System.IO.File.WriteAllBytes(Application.persistentDataPath + $"/Screenshot-{Random.Range(0, 1000)}.jpg", byteArray);
+            
+        RenderTexture.ReleaseTemporary(renderTexture);
+        m_Camera.targetTexture = null;
+        m_Camera.cullingMask = defaultMask.value;
+
     }
 
     public void TakeScreenshot(int width, int height)
