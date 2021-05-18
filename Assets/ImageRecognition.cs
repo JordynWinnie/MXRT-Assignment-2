@@ -24,8 +24,8 @@ public class ImageRecognition : MonoBehaviour
 
     private void OnEnable()
     {
-        s_FirstImg = m_ImageLibrary[0].guid;
-        s_SecondImg = m_ImageLibrary[1].guid;
+        s_FirstImg = m_ImageLibrary[1].guid;
+        s_SecondImg = m_ImageLibrary[0].guid;
         mTrackedManager.trackedImagesChanged += MTrackedManagerOnTrackedImagesChanged;
     }
 
