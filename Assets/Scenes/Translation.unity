@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 117714848}
   - component: {fileID: 117714847}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: DataCheckDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -750,7 +750,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1616806930}
-        m_TargetAssemblyTypeName: DataChecker, Assembly-CSharp
+        m_TargetAssemblyTypeName: DataDownloader, Assembly-CSharp
         m_MethodName: LoadAR
         m_Mode: 1
         m_Arguments:

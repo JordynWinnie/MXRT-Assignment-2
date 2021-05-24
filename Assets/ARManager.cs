@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockARRaycastOnUI : MonoBehaviour
+public class ARManager : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     void Start()
     {

@@ -7,36 +7,24 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-public class DataChecker : MonoBehaviour
+public class DataDownloader : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI FilePathCheck;
-    private string FilePath = string.Empty;
     private readonly string baseURL = "https://microsoft-translator-text.p.rapidapi.com/languages?api-version=3.0&scope=translation%2Ctransliteration";
     // Start is called before the first frame update
     void Start()
     {
-        FilePath = Application.persistentDataPath + "/LanguageCache.json";
-        print(FilePath);
         CheckForJsonData();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     void CheckForJsonData()
     {
 
-        if (File.Exists(FilePath))
+        if (JsonDataLoader.CheckIfFileExists())
         {
             FilePathCheck.text = "Data Check: File Exists";
             FilePathCheck.text += "\n";
-            var data = File.ReadAllText(FilePath);
-            print(data);
-            var jsonData = JSON.Parse(data);
-            FilePathCheck.text += "Languages Found: " + jsonData.Count;
+            FilePathCheck.text += "Languages Found: " + JsonDataLoader.GetLanguageData().Count;
             return;
         }
 
@@ -80,7 +68,7 @@ public class DataChecker : MonoBehaviour
             }
         }
 
-        File.WriteAllText(FilePath, languageNames.ToString());
+        JsonDataLoader.WriteToJson(languageNames.ToString());
         
         CheckForJsonData();
     }
