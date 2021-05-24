@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARFoundation.Samples;
 using UnityEngine.XR.ARSubsystems;
 
 public class AnchorCreator : MonoBehaviour
@@ -95,6 +97,17 @@ public class AnchorCreator : MonoBehaviour
         {
             return;
         }
+        //Code Referenced From: 
+        //https://www.youtube.com/watch?v=NdrvihZhVqs
+        var touchPos = touch.position;
+
+        bool isOverUI = touchPos.IsPointOverUIObject();
+
+        if (isOverUI)
+        {
+            return;
+        }
+        
         if (m_RaycastManager.Raycast(touch.position, s_Hits, trackableTypes))
         {
             // Raycast hits are sorted by distance, so the first one will be the closest hit.
