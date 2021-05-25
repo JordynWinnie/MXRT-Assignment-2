@@ -5,10 +5,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DataDownloader : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI FilePathCheck;
+    [SerializeField] private Button StartARButton;
 
     private readonly string baseURL =
         "https://microsoft-translator-text.p.rapidapi.com/languages?api-version=3.0&scope=translation%2Ctransliteration";
@@ -23,12 +25,13 @@ public class DataDownloader : MonoBehaviour
     {
         if (JsonDataLoader.CheckIfFileExists())
         {
+            StartARButton.interactable = true;
             FilePathCheck.text = "Data Check: File Exists";
             FilePathCheck.text += "\n";
             FilePathCheck.text += "Languages Found: " + JsonDataLoader.GetLanguageData().Count;
             return;
         }
-
+        StartARButton.interactable = false;
         StartCoroutine(GetLanguages());
     }
 
@@ -61,9 +64,7 @@ public class DataDownloader : MonoBehaviour
             var langName = child.Value["name"].Value;
             languageNames.Add(langCode, langName);
         }
-
-        print(languageNames);
-
+        
         foreach (var child in transliterations)
         {
             var langCode = child.Key;
@@ -83,5 +84,11 @@ public class DataDownloader : MonoBehaviour
     public void LoadAR()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void DeleteDataAndCheckAgain()
+    {
+        JsonDataLoader.DeleteLanguageFile();
+        CheckForJsonData();
     }
 }

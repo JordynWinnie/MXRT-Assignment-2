@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Text;
 using SimpleJSON;
@@ -14,6 +15,11 @@ public class TranslationAPI : MonoBehaviour
     private readonly string baseTransliterateURL =
         "https://microsoft-translator-text.p.rapidapi.com/transliterate?toScript=Latn&api-version=3.0";
 
+    private void Start()
+    {
+        TranslationDisplay.text = string.Empty;
+    }
+
     public void StartTranslation(string textToTranslate)
     {
         //If a current Translation is running, and it gets Refreshed, it should cancel that translation, and use the new translation data:
@@ -29,7 +35,7 @@ public class TranslationAPI : MonoBehaviour
         var fromScript = selectedLang.LanguageScript;
 
         //This lets the user know a translation is being fetched:
-        TranslationDisplay.text = "Translation...";
+        TranslationDisplay.text = "Translating...";
 
         //Json data serialisation:
         var translateData = new JSONArray();
@@ -73,7 +79,6 @@ public class TranslationAPI : MonoBehaviour
         var transliteration = new JSONObject();
         transliteration.Add("Text", translationResult);
         transliterateData.Add(transliteration);
-        print("Transliterate Body: " + transliterateData);
         var transliterateBodyRaw = Encoding.UTF8.GetBytes(transliterateData.ToString());
         using var transliteratePostRequest = new UnityWebRequest(transliterateFullURL, "POST")
         {
@@ -91,12 +96,10 @@ public class TranslationAPI : MonoBehaviour
             TranslationDisplay.text = "Failed to connect to Translation Servers.";
             yield break;
         }
-
-        print("Transliterate Text: " + transliteratePostRequest.downloadHandler.text);
+        
         var transliterationJsonResult = JSON.Parse(transliteratePostRequest.downloadHandler.text);
 
         var transliterationResult = transliterationJsonResult[0]["text"].Value.Trim('"');
-        print("Transliterate Result: " + transliterationResult);
         TranslationDisplay.text = $"{selectedLang.LanguageDisplayName}: {translationResult} ({transliterationResult})";
     }
 }

@@ -9,7 +9,12 @@ public static class JsonDataLoader
 
     public static string GetLanguagePath()
     {
-        return Application.persistentDataPath + "/Languages.json";
+        return Application.persistentDataPath + "/LanguageListCache.json";
+    }
+
+    public static void DeleteLanguageFile()
+    {
+        File.Delete(GetLanguagePath());
     }
 
     public static List<LanguageModel> LoadLanguageList()
