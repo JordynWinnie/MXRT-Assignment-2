@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 6771717953140976896}
   - component: {fileID: 405064833797616683}
   - component: {fileID: 5811153869312381220}
+  - component: {fileID: 51821041518412429}
   m_Layer: 6
   m_Name: CubeWithText
   m_TagString: Untagged
@@ -290,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c867a006297711f448e5151db224db19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TranslationDisplay: {fileID: 0}
 --- !u!114 &5811153869312381220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,8 +305,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TextDisplay: {fileID: 4940485205822431847}
-  TranslationDisplay: {fileID: 2879079770927365096}
   currentByteArray: 
+--- !u!114 &51821041518412429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2240519862432197784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c867a006297711f448e5151db224db19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TranslationDisplay: {fileID: 2879079770927365096}
 --- !u!1 &7399509115819917243
 GameObject:
   m_ObjectHideFlags: 0

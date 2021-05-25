@@ -11,11 +11,7 @@ using TMPro;
 public class ImageResultFromAPI : MonoBehaviour
 {
     [SerializeField] TextMesh TextDisplay;
-    [SerializeField] TextMesh TranslationDisplay;
-
     private readonly string baseImageURL = "https://api.imagga.com/v2/tags";
-    private readonly string baseTranslationURL = "https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/translation/text/translate";
-
     public byte[] currentByteArray = null;
 
     private List<KeyValuePair<string, decimal>> ConfidenceValues = new List<KeyValuePair<string, decimal>>();
@@ -27,7 +23,6 @@ public class ImageResultFromAPI : MonoBehaviour
         StartCoroutine(GetImageData(base54String));
 
         TextDisplay.text = "Identifying Object...";
-        TranslationDisplay.text = string.Empty;
     }
 
     private void Update()
@@ -62,33 +57,6 @@ public class ImageResultFromAPI : MonoBehaviour
                 ConfidenceValues.Add(new KeyValuePair<string, decimal>(identification, confidence));
             }
         }
-        TextDisplay.text = $"English: {ConfidenceValues[0].Key} (Confidence: {ConfidenceValues[1].Value:0.0}%)";
-        StartCoroutine(GetTranslationData(ConfidenceValues[0].Key, "ja"));
-    }
-
-    IEnumerator GetTranslationData(string translation, string targetLang)
-    {
-        TranslationDisplay.text = "Getting Translation...";
-        var source = "en";
-        var finalUrl = $"{baseTranslationURL}?source={source}&target={targetLang}&input={translation}";
-        using (var webRequest = UnityWebRequest.Get(finalUrl))
-        {
-            webRequest.SetRequestHeader("x-rapidapi-key", "5249fbda84msh8c5a35ed399d28ep1637cdjsn0ba36b495f97");
-            webRequest.SetRequestHeader("x-rapidapi-host", "systran-systran-platform-for-language-processing-v1.p.rapidapi.com");
-
-
-            yield return webRequest.SendWebRequest();
-
-            if (webRequest.result != UnityWebRequest.Result.Success)
-            {
-                TextDisplay.text = "Error Connecting to Translation Servers.";
-                yield break;
-            }
-
-            var translationJson = JSON.Parse(webRequest.downloadHandler.text);
-            var finalTranslation = translationJson[0][0]["output"].ToString().Replace("\"", string.Empty);
-
-            TranslationDisplay.text = $"Japanese: {finalTranslation}";
-        }
+        TextDisplay.text = $"English: {ConfidenceValues[0].Key} (Confidence: {ConfidenceValues[0].Value:0.0}%)";
     }
 }

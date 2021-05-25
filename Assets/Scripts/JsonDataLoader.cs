@@ -7,25 +7,23 @@ using UnityEngine;
 
 public static class JsonDataLoader
 {
-    private static Dictionary<string, JSONNode> LanguageValues;
+    private static List<KeyValuePair<string, string>> LanguageValues;
 
     public static string GetLanguagePath()
     {
         return Application.persistentDataPath + "/LanguageCaches.json";
     }
     
-    public static void SetUpJsonLoader()
+    public static List<KeyValuePair<string, string>> GetLanguages()
     {
-        var orderByEnglishFirst = GetLanguageData().Linq.OrderByDescending(x => x.Key == "en");
-        LanguageValues = new Dictionary<string, JSONNode>();
-        foreach (var language in orderByEnglishFirst)
+        LanguageValues = new List<KeyValuePair<string, string>>();
+        foreach (var language in GetLanguageData())
         {
-            LanguageValues.Add(language.Key, language.Value.Value);
+            LanguageValues.Add(new KeyValuePair<string, string>(language.Key, language.Value));
         }
+        return LanguageValues;
     }
     
-   
-
     public static bool CheckIfFileExists()
     {
         return File.Exists(GetLanguagePath());

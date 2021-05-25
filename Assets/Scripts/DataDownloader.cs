@@ -40,10 +40,14 @@ public class DataDownloader : MonoBehaviour
         webRequest.SetRequestHeader("content-type", "application/json");
         webRequest.SetRequestHeader("Accept-Encoding", string.Empty);
         yield return webRequest.SendWebRequest();
+
+        if (webRequest.result != UnityWebRequest.Result.Success)
+        {
+            FilePathCheck.text = "Error Downloading File.";
+        }
+        
         var data = webRequest.downloadHandler.data;
         var result = System.Text.Encoding.UTF8.GetString(data);
-        print("Result: " + result);
-        
         var languages = JSON.Parse(result);
         var transliterations = languages["transliteration"];
         var translations = languages["translation"];
@@ -52,6 +56,9 @@ public class DataDownloader : MonoBehaviour
         foreach (var child in translations)
         {
             var langCode = child.Key;
+
+            if (langCode == "en") continue; //Skip English Translation as translations will always be from English > Another Language
+            
             var langName = child.Value["name"].Value;
             languageNames.Add(langCode, langName);
         }
