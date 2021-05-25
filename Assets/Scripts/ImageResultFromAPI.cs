@@ -1,26 +1,23 @@
-using UnityEngine.Networking;
-using System.Text;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using SimpleJSON;
 using UnityEngine;
-using TMPro;
+using UnityEngine.Networking;
 
 public class ImageResultFromAPI : MonoBehaviour
 {
-    [SerializeField] TextMesh TextDisplay;
-    public byte[] currentByteArray = null;
+    [SerializeField] private TextMesh TextDisplay;
+    public byte[] currentByteArray;
     public string CurrentObjectName = string.Empty;
-    
-    private readonly string baseImageURL = "https://api.imagga.com/v2/tags"; 
-    private List<KeyValuePair<string, decimal>> ConfidenceValues = new List<KeyValuePair<string, decimal>>();
+
+    private readonly string baseImageURL = "https://api.imagga.com/v2/tags";
+    private readonly List<KeyValuePair<string, decimal>> ConfidenceValues = new List<KeyValuePair<string, decimal>>();
     private TranslationAPI m_TranslationAPI;
-    
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         m_TranslationAPI = GetComponent<TranslationAPI>();
         var base64String = Convert.ToBase64String(currentByteArray);
@@ -34,18 +31,19 @@ public class ImageResultFromAPI : MonoBehaviour
         transform.LookAt(Camera.main.transform, Vector3.up);
     }
 
-    IEnumerator GetImageData(string data)
+    private IEnumerator GetImageData(string data)
     {
         var formData = new List<IMultipartFormSection> {new MultipartFormDataSection("image_base64", data)};
         using (var webRequest = UnityWebRequest.Post(baseImageURL, formData))
         {
-            webRequest.SetRequestHeader("Authorization", "Basic YWNjXzYyZjczOGUyN2JjNGVhMDoxMzUyMTE2ODA0MDFkNjlmZDljNDkwZmQ2MGVmNWU2Nw==");
+            webRequest.SetRequestHeader("Authorization",
+                "Basic YWNjXzYyZjczOGUyN2JjNGVhMDoxMzUyMTE2ODA0MDFkNjlmZDljNDkwZmQ2MGVmNWU2Nw==");
             yield return webRequest.SendWebRequest();
 
             if (webRequest.result != UnityWebRequest.Result.Success)
             {
                 TextDisplay.text = "Connection Error. Please try again.";
-                
+
                 Destroy(gameObject, 5f);
                 yield break;
             }
@@ -62,9 +60,10 @@ public class ImageResultFromAPI : MonoBehaviour
                 ConfidenceValues.Add(new KeyValuePair<string, decimal>(identification, confidence));
             }
         }
+
         TextDisplay.text = $"English: {ConfidenceValues[0].Key} (Confidence: {ConfidenceValues[0].Value:0.0}%)";
         CurrentObjectName = ConfidenceValues[0].Key;
-        
+
         //When the object has been recognised, call the Translation API to translate the text:
         m_TranslationAPI.StartTranslation(CurrentObjectName);
     }

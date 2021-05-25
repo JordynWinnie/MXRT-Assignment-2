@@ -1,20 +1,20 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ARFadeScript : MonoBehaviour
 {
-    [SerializeField] Image ARIcon;
-    [SerializeField] Image ARBackground;
+    [SerializeField] private Image ARIcon;
+
+    [SerializeField] private Image ARBackground;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         StartCoroutine(Fade());
     }
 
-    IEnumerator Fade()
+    private IEnumerator Fade()
     {
         yield return new WaitForSeconds(0.75f);
         while (ARIcon.color.a > 0)
@@ -32,11 +32,5 @@ public class ARFadeScript : MonoBehaviour
         }
 
         ARBackground.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

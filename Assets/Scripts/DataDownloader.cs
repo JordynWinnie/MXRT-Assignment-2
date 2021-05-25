@@ -1,6 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+using System.Text;
 using SimpleJSON;
 using TMPro;
 using UnityEngine;
@@ -9,17 +8,19 @@ using UnityEngine.SceneManagement;
 
 public class DataDownloader : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI FilePathCheck;
-    private readonly string baseURL = "https://microsoft-translator-text.p.rapidapi.com/languages?api-version=3.0&scope=translation%2Ctransliteration";
+    [SerializeField] private TextMeshProUGUI FilePathCheck;
+
+    private readonly string baseURL =
+        "https://microsoft-translator-text.p.rapidapi.com/languages?api-version=3.0&scope=translation%2Ctransliteration";
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         CheckForJsonData();
     }
-    
-    void CheckForJsonData()
-    {
 
+    private void CheckForJsonData()
+    {
         if (JsonDataLoader.CheckIfFileExists())
         {
             FilePathCheck.text = "Data Check: File Exists";
@@ -30,8 +31,8 @@ public class DataDownloader : MonoBehaviour
 
         StartCoroutine(GetLanguages());
     }
-    
-    IEnumerator GetLanguages()
+
+    private IEnumerator GetLanguages()
     {
         using var webRequest = UnityWebRequest.Get(baseURL);
         FilePathCheck.text = "Data Check: Downloading File...";
@@ -41,13 +42,10 @@ public class DataDownloader : MonoBehaviour
         webRequest.SetRequestHeader("Accept-Encoding", string.Empty);
         yield return webRequest.SendWebRequest();
 
-        if (webRequest.result != UnityWebRequest.Result.Success)
-        {
-            FilePathCheck.text = "Error Downloading File.";
-        }
-        
+        if (webRequest.result != UnityWebRequest.Result.Success) FilePathCheck.text = "Error Downloading File.";
+
         var data = webRequest.downloadHandler.data;
-        var result = System.Text.Encoding.UTF8.GetString(data);
+        var result = Encoding.UTF8.GetString(data);
         var languages = JSON.Parse(result);
         var transliterations = languages["transliteration"];
         var translations = languages["translation"];
@@ -57,13 +55,15 @@ public class DataDownloader : MonoBehaviour
         {
             var langCode = child.Key;
 
-            if (langCode == "en") continue; //Skip English Translation as translations will always be from English > Another Language
-            
+            if (langCode == "en")
+                continue; //Skip English Translation as translations will always be from English > Another Language
+
             var langName = child.Value["name"].Value;
             languageNames.Add(langCode, langName);
         }
+
         print(languageNames);
-       
+
         foreach (var child in transliterations)
         {
             var langCode = child.Key;
@@ -76,7 +76,7 @@ public class DataDownloader : MonoBehaviour
         }
 
         JsonDataLoader.WriteToJson(languageNames.ToString());
-        
+
         CheckForJsonData();
     }
 

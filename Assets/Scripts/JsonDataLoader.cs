@@ -11,7 +11,7 @@ public static class JsonDataLoader
     {
         return Application.persistentDataPath + "/Languages.json";
     }
-    
+
     public static List<LanguageModel> LoadLanguageList()
     {
         LanguageValues = new List<LanguageModel>();
@@ -23,15 +23,14 @@ public static class JsonDataLoader
             var languageRaw = language.Value.Value.Split(';');
             var model = new LanguageModel(language.Key, languageRaw[0]);
             if (languageRaw.Length > 1)
-            {
                 //This means that the current language has an available Transliteration script:
                 model.LanguageScript = languageRaw[1];
-            }
             LanguageValues.Add(model);
         }
+
         return LanguageValues;
     }
-    
+
     public static bool CheckIfFileExists()
     {
         return File.Exists(GetLanguagePath());
