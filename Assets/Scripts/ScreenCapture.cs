@@ -62,7 +62,7 @@ public class ScreenCapture : MonoBehaviour
         
         byte[] fileData = screenShot.EncodeToJPG();
 
-        
+        /*
         new System.Threading.Thread(() =>
         {
             var file = System.IO.File.Create(filename);
@@ -70,6 +70,7 @@ public class ScreenCapture : MonoBehaviour
             file.Close();
             Debug.Log(string.Format("Screenshot Saved {0}, size {1}", filename, fileData.Length));
         }).Start();
+        */
 
         Destroy(renderTexture);
         renderTexture = null;
