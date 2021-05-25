@@ -6,7 +6,7 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARFoundation.Samples;
 using UnityEngine.XR.ARSubsystems;
 
-public class AnchorCreator : MonoBehaviour
+public class TranslationAnchorCreator : MonoBehaviour
 {
     [SerializeField] private GameObject m_AnchorObj;
     List<ARAnchor> m_Anchors = new List<ARAnchor>();
@@ -32,10 +32,17 @@ public class AnchorCreator : MonoBehaviour
         m_Anchors.Clear();
     }
 
+    public void RefreshAllTranslations()
+    {
+        foreach (var anchor in m_Anchors)
+        {
+            anchor.GetComponent<ImageResultFromAPI>().RefreshTranslations();
+        }
+    }
+    
     void SetAnchorInfo(ARAnchor anchor, byte[] data)
     {
         anchor.GetComponent<ImageResultFromAPI>().currentByteArray = data;
-        //anchor.GetComponentInChildren<TextMesh>().text = text;
     }
     
     ARAnchor CreateAnchor(in ARRaycastHit hit)
@@ -89,22 +96,20 @@ public class AnchorCreator : MonoBehaviour
             m_PlaneManager.SetTrackablesActive(isTrackablesActive);
         }
 
-        if (Input.touchCount == 0)
-            return;
+        if (Input.touchCount == 0) return;
 
         var touch = Input.GetTouch(0);
-        if (touch.phase != TouchPhase.Began)
-        {
-            return;
-        }
+        if (touch.phase != TouchPhase.Began) return;
+        
         //Code Referenced From: 
         //https://www.youtube.com/watch?v=NdrvihZhVqs
         var touchPos = touch.position;
 
         bool isOverUI = touchPos.IsPointOverUIObject();
-
+        
         if (isOverUI)
         {
+            print("IsOverUI: Cancelled UI touch");
             return;
         }
         

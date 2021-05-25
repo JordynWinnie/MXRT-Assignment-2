@@ -1,25 +1,33 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using SimpleJSON;
 using UnityEngine;
 
 public static class JsonDataLoader
 {
-    private static List<KeyValuePair<string, string>> LanguageValues;
+    private static List<LanguageModel> LanguageValues;
 
     public static string GetLanguagePath()
     {
-        return Application.persistentDataPath + "/LanguageCaches.json";
+        return Application.persistentDataPath + "/Languages.json";
     }
     
-    public static List<KeyValuePair<string, string>> GetLanguages()
+    public static List<LanguageModel> LoadLanguageList()
     {
-        LanguageValues = new List<KeyValuePair<string, string>>();
+        LanguageValues = new List<LanguageModel>();
         foreach (var language in GetLanguageData())
         {
-            LanguageValues.Add(new KeyValuePair<string, string>(language.Key, language.Value));
+            /* Gets the Display Language as First Element, and an optional
+             script for transliteration as the second Element.
+            */
+            var languageRaw = language.Value.Value.Split(';');
+            var model = new LanguageModel(language.Key, languageRaw[0]);
+            if (languageRaw.Length > 1)
+            {
+                //This means that the current language has an available Transliteration script:
+                model.LanguageScript = languageRaw[1];
+            }
+            LanguageValues.Add(model);
         }
         return LanguageValues;
     }
