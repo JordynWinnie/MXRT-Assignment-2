@@ -11,6 +11,7 @@ public class DataDownloader : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI FilePathCheck;
     [SerializeField] private Button StartARButton;
+    
 
     private readonly string baseURL =
         "https://microsoft-translator-text.p.rapidapi.com/languages?api-version=3.0&scope=translation%2Ctransliteration";
