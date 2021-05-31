@@ -683,6 +683,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     4: UNITY_XR_ARKIT_LOADER_ENABLED
+    7: 
   additionalCompilerArguments: {}
   platformArchitecture:
     iPhone: 1

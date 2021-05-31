@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Camera: {fileID: 107555045}
   cullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 23
   defaultMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1224,6 +1224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2980bc4f350add1449d44b352d75af28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondsBeforeFadeBegins: 0
+  FadeSpeed: 0
   ARIcon: {fileID: 2814192631684333790}
   ARBackground: {fileID: 2814192631303044078}
 --- !u!224 &2814192630448332992
@@ -3477,7 +3479,7 @@ GameObject:
   - component: {fileID: 5977163236597278139}
   - component: {fileID: 701337188}
   - component: {fileID: 5977163236970231590}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScreenspaceUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}

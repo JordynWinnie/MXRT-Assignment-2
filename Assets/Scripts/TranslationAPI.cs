@@ -53,7 +53,7 @@ public class TranslationAPI : MonoBehaviour
             downloadHandler = new DownloadHandlerBuffer()
         };
         translatePostRequest.SetRequestHeader("Content-Type", "application/json");
-        translatePostRequest.SetRequestHeader("x-rapidapi-key", "5249fbda84msh8c5a35ed399d28ep1637cdjsn0ba36b495f97");
+        translatePostRequest.SetRequestHeader("x-rapidapi-key", APIKeyConstants.RAPIDAPI_KEY);
         translatePostRequest.SetRequestHeader("x-rapidapi-host", "microsoft-translator-text.p.rapidapi.com");
         yield return translatePostRequest.SendWebRequest();
 
@@ -86,8 +86,7 @@ public class TranslationAPI : MonoBehaviour
             downloadHandler = new DownloadHandlerBuffer()
         };
         transliteratePostRequest.SetRequestHeader("Content-Type", "application/json");
-        transliteratePostRequest.SetRequestHeader("x-rapidapi-key",
-            "5249fbda84msh8c5a35ed399d28ep1637cdjsn0ba36b495f97");
+        transliteratePostRequest.SetRequestHeader("x-rapidapi-key", APIKeyConstants.RAPIDAPI_KEY);
         transliteratePostRequest.SetRequestHeader("x-rapidapi-host", "microsoft-translator-text.p.rapidapi.com");
         yield return transliteratePostRequest.SendWebRequest();
 

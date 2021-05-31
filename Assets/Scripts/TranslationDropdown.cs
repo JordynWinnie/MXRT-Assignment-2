@@ -13,7 +13,7 @@ public class TranslationDropdown : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        LanguageListInfo = JsonDataLoader.LoadLanguageList();
+        LanguageListInfo = JsonDataLoader.LanguageValues;
 
         //This sets up the Languages that the user can SEE:
         foreach (var language in LanguageListInfo) LanguageListDisplay.Add(language.LanguageDisplayName);
