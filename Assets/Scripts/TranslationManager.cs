@@ -16,7 +16,7 @@ public class TranslationManager : MonoBehaviour
     private TranslationAnchorCreator m_TranslationAnchorManager;
     private TranslationDropdown m_TranslationDropdownManager;
 
-
+    //Singleton initaliser:
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -50,6 +50,6 @@ public class TranslationManager : MonoBehaviour
     //Called by the Close button
     public void ExitAR()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

@@ -5,18 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/ImageReg.unity
-    guid: fed01463920e057449cce10530425933
-  - enabled: 0
-    path: Assets/Scenes/PointCloudExp.unity
-    guid: 2453653108f955744a900960314f97a8
-  - enabled: 0
-    path: Assets/Scenes/FeatureReg.unity
-    guid: 541bb259cbc314e47a1d25502accc884
-  - enabled: 0
-    path: Assets/Scenes/FeatureRegWithDiffScreenshot.unity
-    guid: 2ca85463b19ecf54794d63aa95848b4f
+  - enabled: 1
+    path: Assets/Scenes/0_Preload.unity
+    guid: bb75b3721b85d42ac9929231b9f4c8a5
   - enabled: 1
     path: Assets/Scenes/1_MainMenu.unity
     guid: bdb485656138c2e4aad40e4bdd8c9450
