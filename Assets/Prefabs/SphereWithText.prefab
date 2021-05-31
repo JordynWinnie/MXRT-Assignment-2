@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1292956881944549586}
   - component: {fileID: 1705988225108610972}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Backdrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5430170886901946092}
   - component: {fileID: 6419372636014877917}
   - component: {fileID: 2879079770927365096}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: TranslatedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 5811153869312381220}
   - component: {fileID: 51821041518412429}
   - component: {fileID: 7481580464392997392}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: SphereWithText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 7324402967643755728}
   - component: {fileID: 6457738236989701856}
   - component: {fileID: 4940485205822431847}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: DisplayText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

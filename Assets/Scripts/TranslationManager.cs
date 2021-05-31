@@ -1,13 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 
 public class TranslationManager : MonoBehaviour
 {
     //This will be the only reference to access any of the other managers,
     //this decreases the amount of Singletons created:
+    //It also provides a convinient location for Button OnClick() functions instead
+    //of references many different items:
     public static TranslationManager Instance;
+    public ARRaycastManager RaycastManager;
+    public ARAnchorManager AnchorManager;
+    public ARPlaneManager PlaneManager;
     private TranslationAnchorCreator m_TranslationAnchorManager;
     private TranslationDropdown m_TranslationDropdownManager;
+
 
     private void Awake()
     {

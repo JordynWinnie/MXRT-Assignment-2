@@ -136,12 +136,6 @@ public class DataDownloader : MonoBehaviour
         CheckForJsonData();
     }
 
-    //Simple helper function to load the AR Scene when everything is ready:
-    public void LoadAR()
-    {
-        SceneManager.LoadScene(1);
-    }
-
     //A button call to force deletion of data, and re-download, 
     //this is for any corrupted files, or if the user knows that more languages are
     //supported by Microsoft's Translation API:

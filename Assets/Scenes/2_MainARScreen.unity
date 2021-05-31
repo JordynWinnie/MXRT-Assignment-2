@@ -874,10 +874,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AnchorObj: {fileID: 2240519862432197784, guid: c8a625813a6f9cd489d42497e85834b6,
     type: 3}
-  m_RaycastManager: {fileID: 1982615404}
-  m_AnchorManager: {fileID: 1982615403}
-  m_PlaneManager: {fileID: 1982615402}
-  isTrackablesActive: 1
 --- !u!114 &1484688912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,6 +899,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d4170b997faf848801ba265a21d017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RaycastManager: {fileID: 1982615404}
+  AnchorManager: {fileID: 1982615403}
+  PlaneManager: {fileID: 1982615402}
 --- !u!1 &1982615397
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,7 +977,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728ad7fae8e460a4ba41265c7308d757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AnchorPrefab: {fileID: 0}
+  m_AnchorPrefab: {fileID: 2240519862432197784, guid: c8a625813a6f9cd489d42497e85834b6,
+    type: 3}
 --- !u!114 &1982615404
 MonoBehaviour:
   m_ObjectHideFlags: 0
