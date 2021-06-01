@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] Slider ConfidenceValues;
+
+    private void Start()
+    {
+        
+    }
     public void ForceLanguageRedownload()
     {
         //Deletes the Language Cache, then loads the preload screen,
@@ -16,6 +23,7 @@ public class MainMenu : MonoBehaviour
     public void StartARExperience()
     {
         SceneManager.LoadScene(2);
+
     }
 }
 

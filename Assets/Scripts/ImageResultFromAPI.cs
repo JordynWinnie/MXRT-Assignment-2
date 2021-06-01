@@ -84,6 +84,16 @@ public class ImageResultFromAPI : MonoBehaviour
         var identification = firstResult["tag"]["en"].Value;
         //Get the confidence value:
         var confidence = float.Parse(firstResult["confidence"]);
+
+        //If the confidence produced by the algorithm is below 40%, inform the user
+        //that the prediction will most likely be inaccurate
+        if (confidence < 40)
+        {
+            TextDisplay.text = "Unsure of item's identity, move closer to the item and tap on it.";
+            //Destroy the gameobject after 5 seconds as it serves no purpose:
+            Destroy(gameObject, 5f);
+            yield break;
+        }
         //Inform the user about the prediction:
         TextDisplay.text = $"English: {identification} (Confidence: {confidence:0.0}%)";
         CurrentObjectName = identification;
