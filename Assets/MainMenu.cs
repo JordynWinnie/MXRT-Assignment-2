@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     {
         //Deletes the Language Cache, then loads the preload screen,
         //which will download the file again since it no longer exists
-        JsonDataLoader.DeleteLanguageFile();
+        DataLoader.DeleteLanguageFile();
         SceneManager.LoadScene(0);
     }
 

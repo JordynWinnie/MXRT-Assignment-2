@@ -45,12 +45,12 @@ public class DataDownloader : MonoBehaviour
     {
         //This checks if the LanguageCache.json file is currently in the user's phone:
         //More Information in JsonDataLoader.cs:
-        if (JsonDataLoader.CheckIfFileExists())
+        if (DataLoader.CheckIfFileExists())
         {
             //If the file exists, allow the user to press the StartAR button
             //and inform the user about how many languages are loaded from his phone
             ForceRetry.interactable = true;
-            FilePathCheck.text = $"Managed to load {JsonDataLoader.LanguageValues.Count} languages.";
+            FilePathCheck.text = $"Managed to load {DataLoader.LanguageValues.Count} languages.";
             //Exit the function to prevent redownloading of the file:
             //Load the MainMenu after a 1 second delay:
             StartCoroutine(StartMainMenu());
@@ -141,7 +141,7 @@ public class DataDownloader : MonoBehaviour
             }
         }
         //Calls the data loader to write the LanguageCache to Json in the device files:
-        JsonDataLoader.WriteToJson(languageNames.ToString());
+        DataLoader.WriteToJson(languageNames.ToString());
         //Calls for another check, which should enable the AR button if successful:
         CheckForJsonData();
     }
@@ -150,7 +150,7 @@ public class DataDownloader : MonoBehaviour
     //supported by Microsoft's Translation API:
     public void DeleteDataAndCheckAgain()
     {
-        JsonDataLoader.DeleteLanguageFile();
+        DataLoader.DeleteLanguageFile();
         CheckForJsonData();
     }
 
@@ -159,7 +159,16 @@ public class DataDownloader : MonoBehaviour
     IEnumerator StartMainMenu()
     {
         yield return new WaitForSeconds(0.75f);
-        SceneManager.LoadScene(1);
+
+        if (DataLoader.CheckIfUserHasDefaultLang())
+        {
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            SceneManager.LoadScene(3);
+        }
+        
     }
 
 }

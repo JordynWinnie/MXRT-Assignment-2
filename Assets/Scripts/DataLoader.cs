@@ -7,12 +7,13 @@ using UnityEngine;
 /// in the application
 /// It is able to store downloaded languages to the Device, and is able to read from it as well
 /// This acts as a central point for getting all the languages, therefore it is a static
-/// class that can be accessed anywhere in the code:
+/// class that can be accessed anywhere in the code.
+/// It is also responsible for storing user language preferences.
 ///
 /// References:
 /// (1) Unity Application.persistentDataPath: https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html
 /// </summary>
-public static class JsonDataLoader
+public static class DataLoader
 {
     //Private Reference of a LanguageModel list, which can be changed within this file:
     private static List<LanguageModel> _languageValueReference = new List<LanguageModel>();
@@ -96,5 +97,12 @@ public static class JsonDataLoader
     
     //Internal method that Parses the Json from the Language file stored on the device:
     private static JSONNode GetLanguageData() => JSON.Parse(File.ReadAllText(GetLanguagePath()));
-    
+
+    //Checks if the key for "DefaultLang" returns the default value of -1, if it does
+    //it means that a default language has not been set up:
+    public static bool CheckIfUserHasDefaultLang() => PlayerPrefs.GetInt("DefaultLang", -1) != -1;
+
+    public static int GetUserDefaultLang() => PlayerPrefs.GetInt("DefaultLang", -1);
+
+    public static void SetUpUserDefaultLang(int langIdx) => PlayerPrefs.SetInt("DefaultLang", langIdx);
 }
