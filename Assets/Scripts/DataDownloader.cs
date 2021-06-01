@@ -39,13 +39,15 @@ public class DataDownloader : MonoBehaviour
         FilePathCheck.text = "Checking Data Files...";
         //On App Startup, run CheckForJsonData() to check if the user has downlaoded the data:
         CheckForJsonData();
+        //DataLoader.AppendCollectionToJson("Hello");
+        Debug.Log(DataLoader.UserCollectionValues);
     }
 
     private void CheckForJsonData()
     {
         //This checks if the LanguageCache.json file is currently in the user's phone:
         //More Information in JsonDataLoader.cs:
-        if (DataLoader.CheckIfFileExists())
+        if (DataLoader.CheckIfFileExists(DataLoader.GetLanguagePath()))
         {
             //If the file exists, allow the user to press the StartAR button
             //and inform the user about how many languages are loaded from his phone
@@ -141,7 +143,7 @@ public class DataDownloader : MonoBehaviour
             }
         }
         //Calls the data loader to write the LanguageCache to Json in the device files:
-        DataLoader.WriteToJson(languageNames.ToString());
+        DataLoader.WriteLanguagesToJson(languageNames.ToString());
         //Calls for another check, which should enable the AR button if successful:
         CheckForJsonData();
     }

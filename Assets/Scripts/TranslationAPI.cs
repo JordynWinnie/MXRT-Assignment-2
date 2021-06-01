@@ -3,6 +3,7 @@ using System.Text;
 using SimpleJSON;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 /// <summary>
 /// This script handles the calls to the Translation API
@@ -16,10 +17,10 @@ using UnityEngine.Networking;
 
 public class TranslationAPI : MonoBehaviour
 {
-    //This is the second line in the text mesh on the prefab:
-    [SerializeField] private TextMesh TranslationDisplay;
+    //Accepts a TextField to change, or a TextMesh to modify with translation Data:
+    [SerializeField] TextMesh TextMeshToChange;
+    [SerializeField] Text TextToChange;
 
-    
     private readonly string baseTranslateURL =
         "https://microsoft-translator-text.p.rapidapi.com/translate?api-version=3.0&textType=plain&profanityAction=NoAction";
 
@@ -31,29 +32,43 @@ public class TranslationAPI : MonoBehaviour
     {
         //When the Prefab gets instantiated, it curently does not have any object information
         //so it should not display anything:
-        TranslationDisplay.text = string.Empty;
+        UpdateTextFields(string.Empty);
+    }
+
+
+    //Helper method to change the different fields to the Translation message
+    private void UpdateTextFields(string message)
+    {
+        //Check if the components are null, if not, change the text:
+        if (TextMeshToChange)
+        {
+            TextMeshToChange.text = message;
+        }
+
+        if (TextToChange)
+        {
+            TextToChange.text = message;
+        }
     }
 
     //This is called by ImageResultFromAPI.cs, when refreshing translations, or when the object has been recognised:
-    public void StartTranslation(string textToTranslate)
+    public void StartTranslation(string textToTranslate, LanguageModel selectedLanguage)
     {
         //If a current Translation is running, and it gets Refreshed, it should cancel that translation, and use the new translation data:
         StopAllCoroutines();
        
-        StartCoroutine(TranslateAndTransliterate(textToTranslate));
+        StartCoroutine(TranslateAndTransliterate(textToTranslate, selectedLanguage));
     }
-
     
-    private IEnumerator TranslateAndTransliterate(string textToTranslate)
+    private IEnumerator TranslateAndTransliterate(string textToTranslate, LanguageModel selectedLanguage)
     {
-        //Get the selected Language from the dropdown:
-        var selectedLang = TranslationManager.Instance.ReturnSelectedLanguageInfo();
         //These fields do not have to be variables, but are placed here to reduce code bloat:
-        var targetLang = selectedLang.LanguageCode;
-        var fromScript = selectedLang.LanguageScript;
+        var targetLang = selectedLanguage.LanguageCode;
+        var fromScript = selectedLanguage.LanguageScript;
+        
 
         //This lets the user know a translation is being fetched:
-        TranslationDisplay.text = "Translating...";
+        UpdateTextFields("Translating...");
 
         //Json data serialisation, as per the Microsoft Translate API guidelines, refer to (2)
         //It requires a Json Body with the Key of "text" and the data, which is what text needs to be translated
@@ -90,7 +105,7 @@ public class TranslationAPI : MonoBehaviour
         //Check the Status code of the request, if it failed, inform the user:
         if (translatePostRequest.result != UnityWebRequest.Result.Success)
         {
-            TranslationDisplay.text = "Failed to connect to Translation Servers.";
+            UpdateTextFields("Failed to connect to Translation Servers.");
             //unlike the Image Recognition version, do not destroy the current object
             //as there is still useful information present about the object
             yield break;
@@ -108,10 +123,10 @@ public class TranslationAPI : MonoBehaviour
         var translationResult = translationJsonResult[0]["translations"][0]["text"].Value.Trim('"');
 
         //Check if the current language has a script:
-        if (selectedLang.LanguageScript.Equals(string.Empty))
+        if (fromScript.Equals(string.Empty))
         {
             //Display only translation, since Language does not require transliteration:
-            TranslationDisplay.text = $"{selectedLang.LanguageDisplayName}: {translationResult}";
+            UpdateTextFields($"{selectedLanguage.LanguageDisplayName}: {translationResult}");
             yield break;
         }
 
@@ -141,7 +156,7 @@ public class TranslationAPI : MonoBehaviour
 
         if (transliteratePostRequest.result != UnityWebRequest.Result.Success)
         {
-            TranslationDisplay.text = "Failed to connect to Translation Servers.";
+            UpdateTextFields("Failed to connect to Translation Servers.");
             yield break;
         }
         
@@ -149,6 +164,6 @@ public class TranslationAPI : MonoBehaviour
 
         var transliterationResult = transliterationJsonResult[0]["text"].Value.Trim('"');
         //Sets the result of the translation, along with the Latin Transliteration to help reading:
-        TranslationDisplay.text = $"{selectedLang.LanguageDisplayName}: {translationResult} ({transliterationResult})";
+        UpdateTextFields($"{selectedLanguage.LanguageDisplayName}: {translationResult} ({transliterationResult})");
     }
 }

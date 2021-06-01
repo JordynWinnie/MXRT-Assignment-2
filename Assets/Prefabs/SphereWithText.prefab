@@ -250,7 +250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c867a006297711f448e5151db224db19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TranslationDisplay: {fileID: 2879079770927365096}
+  TextMeshToChange: {fileID: 2879079770927365096}
+  TextToChange: {fileID: 0}
 --- !u!23 &7481580464392997392
 MeshRenderer:
   m_ObjectHideFlags: 0

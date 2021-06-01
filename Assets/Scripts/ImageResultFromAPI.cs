@@ -99,7 +99,7 @@ public class ImageResultFromAPI : MonoBehaviour
         CurrentObjectName = identification;
 
         //When the object has been recognised, call the Translation API to translate the text:
-        m_TranslationAPI.StartTranslation(CurrentObjectName);
+        m_TranslationAPI.StartTranslation(CurrentObjectName, TranslationManager.Instance.ReturnSelectedLanguageInfo());
     }
 
     //This pulic method allows for a translation to happen again if the user switches languages:
@@ -108,6 +108,6 @@ public class ImageResultFromAPI : MonoBehaviour
         //This is for error protection, if an object fails recognition, any Language Refresh should not include this
         //object
         if (CurrentObjectName.Equals(string.Empty)) return;
-        m_TranslationAPI.StartTranslation(CurrentObjectName);
+        m_TranslationAPI.StartTranslation(CurrentObjectName, TranslationManager.Instance.ReturnSelectedLanguageInfo());
     }
 }
