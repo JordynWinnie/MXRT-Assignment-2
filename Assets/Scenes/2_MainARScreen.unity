@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -470,7 +470,7 @@ MonoBehaviour:
     type: 3}
   m_NoneSprite: {fileID: 21300000, guid: 29fc805acb69f4d7b84b4b57f58676b7, type: 3}
   m_LocalizationManager: {fileID: 5977163236970231590}
-  m_LocalizeText: 1
+  m_LocalizeText: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,7 +2037,7 @@ MonoBehaviour:
   m_FadeOffDuration: 1
   m_Transparent: {fileID: 2800000, guid: 6b52c83794be64e65bf826666f5a7f7d, type: 3}
   m_LocalizationManager: {fileID: 5977163236970231590}
-  m_LocalizeText: 1
+  m_LocalizeText: 0
 --- !u!4 &5977163236597278138
 Transform:
   m_ObjectHideFlags: 0
@@ -2068,7 +2068,7 @@ MonoBehaviour:
   m_StartWithInstructionalUI: 1
   m_InstructionalUI: 0
   m_InstructionalGoal: 0
-  m_ShowSecondaryInstructionalUI: 1
+  m_ShowSecondaryInstructionalUI: 0
   m_SecondaryInstructionUI: 6
   m_SecondaryGoal: 6
   m_CoachingOverlayFallback: 0

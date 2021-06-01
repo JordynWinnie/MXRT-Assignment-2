@@ -39,8 +39,6 @@ public class DataDownloader : MonoBehaviour
         FilePathCheck.text = "Checking Data Files...";
         //On App Startup, run CheckForJsonData() to check if the user has downlaoded the data:
         CheckForJsonData();
-        //DataLoader.AppendCollectionToJson("Hello");
-        Debug.Log(DataLoader.UserCollectionValues);
     }
 
     private void CheckForJsonData()

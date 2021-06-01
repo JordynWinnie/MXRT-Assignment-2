@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 7263946409211368202}
   - component: {fileID: 7263946409211368201}
   - component: {fileID: 2741782332990922046}
-  - component: {fileID: 7693719273393227334}
+  - component: {fileID: 7189444888187431105}
   m_Layer: 5
   m_Name: PhraseWithTranslation
   m_TagString: Untagged
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextMeshToChange: {fileID: 0}
   TextToChange: {fileID: 8773358447140481914}
---- !u!114 &7693719273393227334
+--- !u!114 &7189444888187431105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,9 +247,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7263946409211368247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07b51bbadd6aa49c1bf845f664aac82f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6924dc17aa951504a9a929da69bdd2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnglishTranslationDisplay: {fileID: 1002590251414207242}
+  CollectionItemName: 
 --- !u!1 &7656815841341711922
 GameObject:
   m_ObjectHideFlags: 0

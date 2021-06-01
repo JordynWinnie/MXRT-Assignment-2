@@ -129,10 +129,15 @@ public class TranslationAnchorCreator : MonoBehaviour
             {
                 //Set the Instance Anchor to be an Anchor that is attached to the plane
                 //we detected, and have the same pos+rot as the area we tapped:
-                //the default anchor prefab will instantiate with a Call to AttachAnchor:
+                //replace the AnchorManager's prefab with our own,
+                //and instantiate with a Call to AttachAnchor:
+                var oldPrefab = m_AnchorManager.anchorPrefab;
+                m_AnchorManager.anchorPrefab = m_AnchorObj;
                 anchor = m_AnchorManager.AttachAnchor(plane, hit.pose);
+                m_AnchorManager.anchorPrefab = oldPrefab;
                 //Set up the Anchor with the Appropriate image data:
                 SetAnchorInfo(anchor, imageByteArray);
+                
                 //Return this attached anchor:
                 return anchor;
             }

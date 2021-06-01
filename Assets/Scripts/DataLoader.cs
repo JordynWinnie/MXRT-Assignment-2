@@ -35,21 +35,6 @@ public static class DataLoader
             return _languageValueReference;
         }
     }
-    //Similar to the top:
-    public static List<string> UserCollectionValues
-    {
-        get
-        {
-            if (_userCollectionReference.Count == 0)
-            {
-                _userCollectionReference = LoadCollectionList();
-            }
-
-            return _userCollectionReference;
-        }
-    }
-
-
     //Helper method that returns a path to the LanguageCache files in the User's Device.
     //Application.persistentDataPath is a Unity helper method that will return a different path
     //to save Persistent data on every platform.
@@ -57,7 +42,7 @@ public static class DataLoader
     //Andriod: storage/emulated/0/Android/data/<packagename>/files 
     //For more information refer to Ref 1:
     public static string GetLanguagePath() => Application.persistentDataPath + "/LanguageListCache.json";
-    public static string GetCollectionPath() => Application.persistentDataPath + "/UserCollections1.json";
+    public static string GetCollectionPath() => Application.persistentDataPath + "/UserCollections.txt";
 
     
 
@@ -86,7 +71,7 @@ public static class DataLoader
 
             //Clear the items, so the next call to LanguageValues will be forced
             //to call LoadLanguageList()
-            _languageValueReference.Clear();
+            _userCollectionReference.Clear();
         }
     }
     //This is a helper method that creates a new LanguageModel list, 
@@ -120,20 +105,10 @@ public static class DataLoader
         //Return the newly created list:
         return languageList;
     }
-
-    private static List<string> LoadCollectionList()
+    //return the collection of items split by their delimiter:
+    public static string[] LoadCollectionList()
     {
-        var collectionList = new List<string>();
-
-        var items = GetCollectionData();
-        Debug.Log(GetCollectionPath());
-        foreach (var collection in items)
-        {
-            collectionList.Add(collection.Value);
-            Debug.Log(collection.Value);
-        }
-
-        return collectionList;
+        return GetCollectionData().Split(';');
     }
 
     //This uses the C# helper method to see if a File Exists:
@@ -142,26 +117,29 @@ public static class DataLoader
     public static void WriteLanguagesToJson(string data) => File.WriteAllText(GetLanguagePath(), data);
 
     //Helper method to append a new collection to existing collection of items, if no file is detected, create one
-    public static void AppendCollectionToJson(string data)
+    public static void AppendToUserCollection(string data)
     {
         if (CheckIfFileExists(GetCollectionPath()))
         {
+            var currentList = LoadCollectionList();
+            foreach (var currentlyCollectedItems in currentList)
+            {
+                //Do not write duplicates into dataset:
+                if (currentlyCollectedItems.Equals(data)) return;
+            }
+            //Append the new item with a semi colon infront, to as the delimiter:
             var tempList = GetCollectionData();
-            tempList.Add(data);
-            File.WriteAllText(GetCollectionPath(), data.ToString());
+            tempList += $";{data}";
+            File.WriteAllText(GetCollectionPath(), tempList);
             return;
         }
-
-        var jsonData = new JSONArray();
-        jsonData.Add(data);
-        File.WriteAllText(GetCollectionPath(), jsonData.ToString());
-        Debug.Log("Wrote To collection path");
+        File.WriteAllText(GetCollectionPath(), data);
     }
 
     //Internal method that Parses the Json from the Language file stored on the device:
     private static JSONNode GetLanguageData() => JSON.Parse(File.ReadAllText(GetLanguagePath()));
 
-    private static JSONArray GetCollectionData() => JSON.Parse(File.ReadAllText(GetCollectionPath())).AsArray;
+    private static string GetCollectionData() => File.ReadAllText(GetCollectionPath());
 
     //Checks if the key for "DefaultLang" returns the default value of -1, if it does
     //it means that a default language has not been set up:

@@ -97,6 +97,7 @@ public class ImageResultFromAPI : MonoBehaviour
         //Inform the user about the prediction:
         TextDisplay.text = $"English: {identification} (Confidence: {confidence:0.0}%)";
         CurrentObjectName = identification;
+        DataLoader.AppendToUserCollection(identification);
 
         //When the object has been recognised, call the Translation API to translate the text:
         m_TranslationAPI.StartTranslation(CurrentObjectName, TranslationManager.Instance.ReturnSelectedLanguageInfo());
