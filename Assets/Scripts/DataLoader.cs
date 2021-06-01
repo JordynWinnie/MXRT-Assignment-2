@@ -17,8 +17,7 @@ public static class DataLoader
 {
     //Private Reference of a LanguageModel list, which can be changed within this file:
     private static List<LanguageModel> _languageValueReference = new List<LanguageModel>();
-    //Private Reference of a list of strings which contain what the user has discovered, which can be changed within this file:
-    private static List<string> _userCollectionReference = new List<string>();
+
     //Create a ReadOnly List of LanguageModel, it will reference a private loaded
     //language reference, which can be changed throughout this code
     //Also, if the current language list is empty, refresh the list, otherwise return the private reference
@@ -68,10 +67,6 @@ public static class DataLoader
         {
             //If it does, it will attempt to delete the file:
             File.Delete(GetCollectionPath());
-
-            //Clear the items, so the next call to LanguageValues will be forced
-            //to call LoadLanguageList()
-            _userCollectionReference.Clear();
         }
     }
     //This is a helper method that creates a new LanguageModel list, 

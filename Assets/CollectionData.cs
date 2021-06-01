@@ -15,16 +15,16 @@ public class CollectionData : MonoBehaviour
 
     public void RefreshList()
     {
-        //Check if the CollectionFile exists:
-        if (!DataLoader.CheckIfFileExists(DataLoader.GetCollectionPath())) return;
-        //Disable the hint if there are phrases
-        HintToUser.SetActive(false);
-        
         //Destroy the current list
         foreach (Transform child in ListviewParent)
         {
             Destroy(child.gameObject);
         }
+        
+        //Check if the CollectionFile exists:
+        if (!DataLoader.CheckIfFileExists(DataLoader.GetCollectionPath())) return;
+        //Disable the hint if there are phrases
+        HintToUser.SetActive(false);
         
         //re-populate list with all the user's collected words:
         foreach (var word in DataLoader.LoadCollectionList())
