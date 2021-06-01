@@ -3,6 +3,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+/// <summary>
+/// This source code belongs to Unity Technologies, in the asset store:
+/// https://assetstore.unity.com/packages/templates/ar-foundation-demos-onboarding-ux-164766
+///
+/// This Script manages all the different animations that play to demonstrate
+/// to the user what kind of actions to take.
+/// </summary>
 
 public class ARUXAnimationManager : MonoBehaviour
 {

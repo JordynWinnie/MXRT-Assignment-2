@@ -470,7 +470,7 @@ MonoBehaviour:
     type: 3}
   m_NoneSprite: {fileID: 21300000, guid: 29fc805acb69f4d7b84b4b57f58676b7, type: 3}
   m_LocalizationManager: {fileID: 5977163236970231590}
-  m_LocalizeText: 0
+  m_LocalizeText: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,7 +1040,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Look for more textures or details in the area.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 801223ab657744a85b0e2b5ac5c1a041, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 64338df9efb4345d0a24597a8d3233ba, type: 2}
   m_sharedMaterial: {fileID: -7188733246301788310, guid: 801223ab657744a85b0e2b5ac5c1a041,
     type: 2}
   m_fontSharedMaterials: []
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   m_margin: {x: 0.57836914, y: 0, z: -0.6859131, w: 0.092163086}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!224 &2038196467
@@ -2360,7 +2360,7 @@ MonoBehaviour:
   m_FadeOffDuration: 1
   m_Transparent: {fileID: 2800000, guid: 6b52c83794be64e65bf826666f5a7f7d, type: 3}
   m_LocalizationManager: {fileID: 5977163236970231590}
-  m_LocalizeText: 0
+  m_LocalizeText: 1
 --- !u!4 &5977163236597278138
 Transform:
   m_ObjectHideFlags: 0
@@ -2415,7 +2415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6f51f6bfbde451a92c25e3a2a6792b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLocalizedLanguage: 1
+  CurrentLocalizedLanguage: 6
   localizedInit: 
   localizedMotion: 
   localizedLight: 

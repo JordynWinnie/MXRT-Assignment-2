@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.XR.ARFoundation;
-
+/// <summary>
+/// This code belongs to Unity's AR Foundation Samples Github:
+/// https://github.com/Unity-Technologies/arfoundation-samples/blob/main/Assets/Prefabs/AR%20Feathered%20Plane%20Fade.prefab
+///
+/// The main project was downlaoded, then the FeatheredPlane prefab was exported and used in this project
+/// The goal of this script is to have nicer looking plane detection points.
+/// </summary>
 namespace UnityEngine.XR.ARFoundation.Samples
 {
     /// <summary>

@@ -23,6 +23,7 @@ public class TranslationAnchorCreator : MonoBehaviour
 
     //Create a list which stores all the hits that the Raycast Manager returns:
     private readonly List<ARRaycastHit> m_Hits = new List<ARRaycastHit>();
+    //Stores a list of AR objects which represent all the current items marked in the world:
     private readonly List<ARAnchor> m_Anchors = new List<ARAnchor>();
 
     //Links to the Prefab that can translate real world objects:
@@ -148,4 +149,6 @@ public class TranslationAnchorCreator : MonoBehaviour
         //Return the freespace anchor:
         return anchor;
     }
+
+    
 }
