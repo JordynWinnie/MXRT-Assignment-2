@@ -6,14 +6,25 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ImageReg.unity
-    guid: fed01463920e057449cce10530425933
+    path: Assets/Scenes/0_Preload.unity
+    guid: bb75b3721b85d42ac9929231b9f4c8a5
+  - enabled: 1
+    path: Assets/Scenes/1_MainMenu.unity
+    guid: bdb485656138c2e4aad40e4bdd8c9450
+  - enabled: 1
+    path: Assets/Scenes/2_MainARScreen.unity
+    guid: a134f4371a8d6f440bc1f457d85cff23
+  - enabled: 1
+    path: Assets/Scenes/3_StartingScreen.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: e90cf71ee7ac72a47b24d6d2f91a71be,
       type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: b6d36e1646b2df84ea4e801c7f197a8b,
       type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: fd30cf7030bd342e1b45a869462e0ee0,
+      type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: a8c5d02021e80964bab1de2453be351d,
       type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: 6f7fbab671a5848ddae17e25cb330888,
       type: 2}

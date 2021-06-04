@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-
+/// <summary>
+/// This source code belongs to Unity Technologies, in the asset store:
+/// https://assetstore.unity.com/packages/templates/ar-foundation-demos-onboarding-ux-164766
+///
+/// This script handles informing the user about the AR's current state.
+/// Sometimes the user might go into a dark environment, or look at a surface that is not optimal for AR
+/// this will inform the user about certain actions they can take to improve their AR experience.
+/// </summary>
 public class ARUXReasonsManager : MonoBehaviour
 {
     [SerializeField]
