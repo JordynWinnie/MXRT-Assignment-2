@@ -17,40 +17,28 @@ using UnityEngine.UI;
 
 public class TranslationAPI : MonoBehaviour
 {
-    //Accepts a TextField to change, or a TextMesh to modify with translation Data:
-    [SerializeField] TextMesh TextMeshToChange;
-    [SerializeField] Text TextToChange;
-
     private readonly string baseTranslateURL =
         "https://microsoft-translator-text.p.rapidapi.com/translate?api-version=3.0&textType=plain&profanityAction=NoAction";
 
     
     private readonly string baseTransliterateURL =
         "https://microsoft-translator-text.p.rapidapi.com/transliterate?toScript=Latn&api-version=3.0";
+    
+    private ITranslationDisplayResult TextToOutput;
 
     private void Start()
     {
-        //When the Prefab gets instantiated, it curently does not have any object information
-        //so it should not display anything:
-        UpdateTextFields(string.Empty);
-    }
+        //Attempt to get all of the ITranslationDisplay components, as there may be more than one component
+        //that needs to show text:
+        TextToOutput = GetComponent<ITranslationDisplayResult>();
 
-
-    //Helper method to change the different fields to the Translation message
-    private void UpdateTextFields(string message)
-    {
-        //Check if the components are null, if not, change the text:
-        if (TextMeshToChange)
+        if (TextToOutput == null)
         {
-            TextMeshToChange.text = message;
-        }
-
-        if (TextToChange)
-        {
-            TextToChange.text = message;
+            //If no interface is detected, show a warning as it means this API's result has no way of showing:
+            Debug.LogWarning($"No ITranslationDisplay interface detected for {gameObject.name}");
         }
     }
-
+    
     //This is called by ImageResultFromAPI.cs, when refreshing translations, or when the object has been recognised:
     public void StartTranslation(string textToTranslate, LanguageModel selectedLanguage)
     {
@@ -66,9 +54,11 @@ public class TranslationAPI : MonoBehaviour
         var targetLang = selectedLanguage.LanguageCode;
         var fromScript = selectedLanguage.LanguageScript;
         
+        //Create a New Model that the API can output the results to:
+        var translationModel = new TranslationModel {LanguageInformation = selectedLanguage};
 
         //This lets the user know a translation is being fetched:
-        UpdateTextFields("Translating...");
+        TextToOutput.DisplayMessage("Translating...");
 
         //Json data serialisation, as per the Microsoft Translate API guidelines, refer to (2)
         //It requires a Json Body with the Key of "text" and the data, which is what text needs to be translated
@@ -105,7 +95,8 @@ public class TranslationAPI : MonoBehaviour
         //Check the Status code of the request, if it failed, inform the user:
         if (translatePostRequest.result != UnityWebRequest.Result.Success)
         {
-            UpdateTextFields("Failed to connect to Translation Servers.");
+
+            TextToOutput.DisplayError("Failed to connect to Translation Servers.");
             //unlike the Image Recognition version, do not destroy the current object
             //as there is still useful information present about the object
             yield break;
@@ -121,12 +112,13 @@ public class TranslationAPI : MonoBehaviour
         //Which translates Hello to Japanese:
         var translationJsonResult = JSON.Parse(translatePostRequest.downloadHandler.text);
         var translationResult = translationJsonResult[0]["translations"][0]["text"].Value.Trim('"');
-
+        //Set the Model's tranlation result after getting it:
+        translationModel.TranslationResult = translationResult;
         //Check if the current language has a script:
         if (fromScript.Equals(string.Empty))
         {
-            //Display only translation, since Language does not require transliteration:
-            UpdateTextFields($"{selectedLanguage.LanguageDisplayName}: {translationResult}");
+            //since this language does not require transliteration, just output the results based on the current model:
+            TextToOutput.DisplayTranslationResult(translationModel);
             yield break;
         }
 
@@ -156,7 +148,7 @@ public class TranslationAPI : MonoBehaviour
 
         if (transliteratePostRequest.result != UnityWebRequest.Result.Success)
         {
-            UpdateTextFields("Failed to connect to Translation Servers.");
+            TextToOutput.DisplayError("Failed to connect to Translation Servers.");
             yield break;
         }
         
@@ -164,6 +156,7 @@ public class TranslationAPI : MonoBehaviour
 
         var transliterationResult = transliterationJsonResult[0]["text"].Value.Trim('"');
         //Sets the result of the translation, along with the Latin Transliteration to help reading:
-        UpdateTextFields($"{selectedLanguage.LanguageDisplayName}: {translationResult} ({transliterationResult})");
+        translationModel.TransliterationResult = transliterationResult;
+        TextToOutput.DisplayTranslationResult(translationModel);
     }
 }

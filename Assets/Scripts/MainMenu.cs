@@ -40,5 +40,11 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    private void Start()
+    {
+        DataLoader.AppendToUserCollection("Hello");
+        DataLoader.AppendToUserCollection("Byebye");
+    }
 }
 

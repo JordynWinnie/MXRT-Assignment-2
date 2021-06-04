@@ -236,8 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c867a006297711f448e5151db224db19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextMeshToChange: {fileID: 0}
-  TextToChange: {fileID: 8773358447140481914}
 --- !u!114 &7189444888187431105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnglishTranslationDisplay: {fileID: 1002590251414207242}
+  TargetLanguageTranslationDisplay: {fileID: 8773358447140481914}
   CollectionItemName: 
 --- !u!1 &7656815841341711922
 GameObject:
