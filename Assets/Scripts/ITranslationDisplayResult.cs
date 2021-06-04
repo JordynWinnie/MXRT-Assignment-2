@@ -1,5 +1,5 @@
 ﻿    
-public interface ITranslationDisplayResult : IDisplayResult
+public interface ITranslationDisplayResult
 {
     /// <summary>
     /// This interface can be implemented by any class to recieve any information from the TranslationAPI,
@@ -12,4 +12,7 @@ public interface ITranslationDisplayResult : IDisplayResult
     /// </summary>
 
     public void DisplayTranslationResult(TranslationModel translatedTextInfo);
+    
+    public void DisplayMessage(string message);
+    public void DisplayError(string message);
 }
