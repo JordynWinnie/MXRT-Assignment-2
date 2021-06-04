@@ -2,7 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-
+/// <summary>
+/// This source code belongs to Unity Technologies, in the asset store:
+/// https://assetstore.unity.com/packages/templates/ar-foundation-demos-onboarding-ux-164766
+///
+/// This manages the overall UI, which allows the developer to determine what the user should do
+/// first before using AR, these consist of certain goals, like Finding a Plane, or Finding an Object etc.
+/// For this project, the user is expected to find a Plane before they can start using AR.
+/// </summary>
 public struct UXHandle
 {
     public UIManager.InstructionUI InstructionalUI;

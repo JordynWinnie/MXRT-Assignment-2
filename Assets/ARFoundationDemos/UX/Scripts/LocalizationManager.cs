@@ -7,6 +7,12 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.ResourceManagement.AsyncOperations;
+/// <summary>
+/// This source code belongs to Unity Technologies, in the asset store:
+/// https://assetstore.unity.com/packages/templates/ar-foundation-demos-onboarding-ux-164766
+///
+/// This script file allows for the User to have different languages in the Onboarding UI
+/// </summary>
 
 public class LocalizationManager : MonoBehaviour
 {
