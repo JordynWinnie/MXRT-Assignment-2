@@ -93,12 +93,21 @@ public class TranslationAnchorCreator : MonoBehaviour
         foreach (var anchor in m_Anchors) Destroy(anchor.gameObject);
         m_Anchors.Clear();
     }
-
+    
     //Helper method to Refresh translations, by looping through all the anchors,
     //Getting the ImageResult componenet then calling refresh:
     public void RefreshAllTranslations()
     {
-        foreach (var anchor in m_Anchors) anchor.GetComponent<ImageResultFromAPI>().RefreshTranslations();
+        foreach (var anchor in m_Anchors)
+        {
+            //This if check is to skip past anchors that may be errornous,
+            //like if the Image Data is not figured out,
+            //or translation error occured:
+            if (anchor != null)
+            {
+                anchor.GetComponent<ImageResultFromAPI>().RefreshTranslations();
+            }
+        }
     }
 
     //Takes a reference anchor and sets the Appropritate Byte[] Image data
